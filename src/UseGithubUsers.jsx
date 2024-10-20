@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 
-function UseGithubUser(username) {
+function UseGithubUser() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const fetchGithubUser = useCallback((username) => {
     if (!username) return;
 
     setLoading(true);
@@ -26,9 +26,9 @@ function UseGithubUser(username) {
         setError(error.message);
         setLoading(false);
       });
-  }, [username]);
+  }, []);
 
-  return { data, error, loading };
+  return { data, error, loading, fetchGithubUser };
 }
 
 export default UseGithubUser;
